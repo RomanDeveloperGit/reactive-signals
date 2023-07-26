@@ -26,17 +26,17 @@ const createSignal = (initialValue) => {
         get(target, property) {
             if (property !== 'value')
                 throw new Error(constants_1.PROXY_ERROR);
-            if (typeof currentEffectIndex !== 'number')
-                return;
-            if (!effectIndexSignals.get(currentEffectIndex)) {
-                effectIndexSignals.set(currentEffectIndex, []);
-            }
-            const currentEffectIndexSignals = effectIndexSignals.get(currentEffectIndex);
-            if (!currentEffectIndexSignals.includes(data)) {
-                effectIndexSignals.set(currentEffectIndex, [
-                    ...currentEffectIndexSignals,
-                    data,
-                ]);
+            if (typeof currentEffectIndex === 'number') {
+                if (!effectIndexSignals.get(currentEffectIndex)) {
+                    effectIndexSignals.set(currentEffectIndex, []);
+                }
+                const currentEffectIndexSignals = effectIndexSignals.get(currentEffectIndex);
+                if (!currentEffectIndexSignals.includes(data)) {
+                    effectIndexSignals.set(currentEffectIndex, [
+                        ...currentEffectIndexSignals,
+                        data,
+                    ]);
+                }
             }
             return target[property];
         },
