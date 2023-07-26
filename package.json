@@ -1,11 +1,12 @@
 {
   "version": "1.0.0",
-  "name": "reactive-signals",
+  "name": "@rtdeveloper/reactive-signals",
   "description": "My implementation of signals. Something like Vue and Solid.",
   "repository": {
     "type": "git",
     "url": "https://github.com/RomanDeveloperGit/reactive-signals.git"
   },
+  "private": false,
   "type": "module",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
