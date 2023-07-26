@@ -1,0 +1,25 @@
+{
+  "version": "1.0.0",
+  "name": "reactive-signals",
+  "description": "My implementation of signals. Something like Vue and Solid.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RomanDeveloperGit/reactive-signals.git"
+  },
+  "type": "module",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rm -rf dist/ && npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc --outDir dist/esm",
+    "build:cjs": "tsc --module CommonJS --outDir dist/cjs"
+  },
+  "author": "Roman Developer",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.1.6"
+  }
+}
