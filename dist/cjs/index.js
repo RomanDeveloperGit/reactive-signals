@@ -26,7 +26,7 @@ const createSignal = (initialValue) => {
         get(target, property) {
             if (property !== 'value')
                 throw new Error(constants_1.PROXY_ERROR);
-            if (!currentEffectIndex)
+            if (typeof currentEffectIndex !== 'number')
                 return;
             if (!effectIndexSignals.get(currentEffectIndex)) {
                 effectIndexSignals.set(currentEffectIndex, []);

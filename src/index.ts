@@ -37,7 +37,7 @@ export const createSignal = <T>(initialValue: T): Signal<T> => {
     get(target, property) {
       if (property !== 'value') throw new Error(PROXY_ERROR);
 
-      if (!currentEffectIndex) return;
+      if (typeof currentEffectIndex !== 'number') return;
 
       if (!effectIndexSignals.get(currentEffectIndex)) {
         effectIndexSignals.set(currentEffectIndex, []);
