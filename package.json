@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "name": "@rtdeveloper/reactive-signals",
+  "name": "reactive-signals-by-roman",
   "description": "My implementation of signals. Something like Vue and Solid.",
   "repository": {
     "type": "git",
