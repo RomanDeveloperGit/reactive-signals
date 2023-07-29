@@ -9,6 +9,6 @@ My implementation of signals. Something like Vue and Solid.
 
     const createSignal: <T>(initialValue: T) => Signal<T>;
 
-    const computed: (batchChanges: Effect) => void;
+    const batch: (changes: Effect) => void;
 
     const createEffect: (callback: Effect) => void;

@@ -11,7 +11,7 @@ const allEffects: Effect[] = [];
 // Словарь вида: [effect_index] -> Signal[].
 const effectIndexSignals = new Map<number, Signal<any>[]>();
 
-// Отложенные индексы эффектов для батчинга в "compute" функции.
+// Отложенные индексы эффектов для батчинга в "batch" функции.
 const deferredEffectIndexes = new Set<number>();
 
 let currentEffectIndex: null | number = null;
@@ -77,10 +77,10 @@ export const createSignal = <T>(initialValue: T): Signal<T> => {
   });
 };
 
-export const computed = (batchChanges: Effect) => {
+export const batch = (changes: Effect) => {
   isBatchingEnabled = true;
 
-  batchChanges();
+  changes();
 
   const sortedDeferredEffectIndexes = Array.from(
     deferredEffectIndexes.values(),
