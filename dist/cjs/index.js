@@ -1,12 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createEffect = exports.computed = exports.createSignal = void 0;
+exports.createEffect = exports.batch = exports.createSignal = void 0;
 const constants_1 = require("./constants");
 // Все зарегистрированные эффект-колбеки.
 const allEffects = [];
 // Словарь вида: [effect_index] -> Signal[].
 const effectIndexSignals = new Map();
-// Отложенные индексы эффектов для батчинга в "compute" функции.
+// Отложенные индексы эффектов для батчинга в "batch" функции.
 const deferredEffectIndexes = new Set();
 let currentEffectIndex = null;
 let isBatchingEnabled = false;
@@ -58,9 +58,9 @@ const createSignal = (initialValue) => {
     });
 };
 exports.createSignal = createSignal;
-const computed = (batchChanges) => {
+const batch = (changes) => {
     isBatchingEnabled = true;
-    batchChanges();
+    changes();
     const sortedDeferredEffectIndexes = Array.from(deferredEffectIndexes.values()).sort((a, b) => a - b);
     sortedDeferredEffectIndexes.forEach((effectIndex) => {
         executeEffectByIndex(effectIndex);
@@ -68,7 +68,7 @@ const computed = (batchChanges) => {
     deferredEffectIndexes.clear();
     isBatchingEnabled = false;
 };
-exports.computed = computed;
+exports.batch = batch;
 const createEffect = (callback) => {
     const newLength = allEffects.push(callback);
     executeEffectByIndex(newLength - 1);

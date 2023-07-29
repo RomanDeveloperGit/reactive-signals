@@ -3,7 +3,7 @@ import { EXECUTION_EFFECT_ERROR, PROXY_ERROR } from './constants';
 const allEffects = [];
 // Словарь вида: [effect_index] -> Signal[].
 const effectIndexSignals = new Map();
-// Отложенные индексы эффектов для батчинга в "compute" функции.
+// Отложенные индексы эффектов для батчинга в "batch" функции.
 const deferredEffectIndexes = new Set();
 let currentEffectIndex = null;
 let isBatchingEnabled = false;
@@ -54,9 +54,9 @@ export const createSignal = (initialValue) => {
         },
     });
 };
-export const computed = (batchChanges) => {
+export const batch = (changes) => {
     isBatchingEnabled = true;
-    batchChanges();
+    changes();
     const sortedDeferredEffectIndexes = Array.from(deferredEffectIndexes.values()).sort((a, b) => a - b);
     sortedDeferredEffectIndexes.forEach((effectIndex) => {
         executeEffectByIndex(effectIndex);
